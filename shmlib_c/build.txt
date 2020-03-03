@@ -1,0 +1,7 @@
+1、生成c库
+	g++ -fpic -shared -g -o libshmobject.so shminterface.cpp shmobject.cpp -I ./
+
+2、测试c库
+	gcc write.c -L./ -lshmobject -o write
+	gcc read.c  -L./ -lshmobject -o read
+

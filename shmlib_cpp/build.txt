@@ -1,0 +1,6 @@
+1、生成c++库
+	g++ -fpic -shared -g -o libshmobjectcplus.so shmobject.cpp -I ./
+	
+2、测试c++库
+	g++ write.cpp -L./ -lshmobjectcplus -o write
+	g++ read.cpp  -L./ -lshmobjectcplus -o read
