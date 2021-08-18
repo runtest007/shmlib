@@ -1,7 +1,7 @@
 #ifndef _SHM_INTERFACE_H
 #define _SHM_INTERFACE_H
 
-#ifdef _cplusplus
+#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -10,7 +10,7 @@ extern "C"
  * 初始化
  *
  * @param flag
- *   0:write shm, 1:read shm
+ *   1:write shm, 0:read shm
  * @param shmkey
  *   the shm key
  * @param datalen
@@ -26,17 +26,17 @@ int init(int flag, int shmkey, int datalen, int datanum);
 /**
  * 写数据handler释放
  */
-void write_release();
+void write_release(void);
 
 /**
  * 读数据handler释放
  */
-void read_release();
+void read_release(void);
 
 /**
- *写内存获取函数，成功：返回可写内存块指针
+ * 获取可写数据块,失败返回NULL,
  */
-unsigned char* get_write_data();
+unsigned char* get_write_data(void);
 
 /**
  * 写操作数据更新，等待被读进程读取
@@ -44,18 +44,26 @@ unsigned char* get_write_data();
 void update_write_shm(unsigned char* getdata);
 
 /**
- * 读内存获取，成功：返回可读内存指针
+ * 写数据接口
  */
-unsigned char* get_read_data();
+unsigned short write_data(unsigned char* buf, unsigned short len);
+
+/**
+ * 更新数据块可读状态和写索引
+ */
+void update_shm(unsigned char* getdata);
+
+/**
+ * 获取可写数据块,失败返回NULL
+ */
+unsigned char* get_read_data(void);
 
 /**
  * 读操作数据更新，等待被写进程读取
  */
 void update_read_shm(unsigned char* getdata);
 
-
-
-#ifdef _cplusplus
+#ifdef __cplusplus
 }
 #endif
 

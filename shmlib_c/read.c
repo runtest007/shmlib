@@ -4,16 +4,15 @@
 #include<sys/types.h>
 #include<sys/ipc.h>
 #include<sys/shm.h>
-
 #include "shminterface.h"
 #include "shmcommon.h"
 
 int main()
 {
-    if(init(1, 2020, sizeof(struBlkHead)+2048, 30) == 0)
-	{
+    if(init(1,1234, sizeof(struBlkHead)+2048, 64) == 0)
+    {
         printf("init read shm success!\n");
-	}
+    }
     else
     {
         printf("init read shm failed!\n");
@@ -31,14 +30,10 @@ int main()
             update_read_shm(readdata);
             sleep(1);
         }
-        else
-        {
-            printf("无可读数据，请等待写入\n");
-            sleep(1);
-        }
+
+		sleep(1);
     }
-
+	
     read_release();
-
     return 0;
 }

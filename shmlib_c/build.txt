@@ -1,28 +1,15 @@
-1、生成和测试C使用的动态库
-	(a)使用g++编译动态库
-		g++ -fpic -shared -g -o libshmobject.so shminterface.cpp shmobject.cpp -I ./
-	(b)测试动态库(gcc使用g++编译的动态库)
-		gcc write.c -L./ -lshmobject -o write
-		gcc read.c  -L./ -lshmobject -o read
+1��c��̬��
+        g++ -fpic -shared -g -o libshmobject.so shminterface.cpp shmobject.cpp -I ./
+        
+        gcc write.c -L./ -lshmobject -o write
+        gcc read.c  -L./ -lshmobject -o read
 
-2、生成和测试C使用的静态库
-	(a）生成静态库
-		g++ -c shminterface.cpp  shmobject.cpp
-		ar -crv libshmobject.a  shminterface.o shmobject.o
-	(b)测试静态库(gcc使用g++编译的静态态库)
-		gcc write.c -o write libshmobject.a  -lstdc++
-		gcc read.c  -o read  libshmobject.a  -lstdc++
-		
-3、知识点：为什么gcc调用g++动态库正常，而调用同一个文件编译的静态库就报错？为什么gcc使用g++静态库编译报错，需要加-lstdc++才行？
-	ldd libshmobject.so，会发现libshmobject.so依赖一些库（g++编译libshmobject.so的时候会自动链接的），其中包括libstdc++库。
-	(a)动态库会自动链接一些依赖库。
-	(b)静态库只是一堆.o文件的集合，没有那么智能，需要手工解决依赖库。此处gcc使用g++编译的静态库时，需要添加-lstdc++(链接libstdc++库)。
+2��c��̬��
+        g++ -c shminterface.cpp  shmobject.cpp
+        ar -crv libshmobject.a  shminterface.o shmobject.o
 
-4、gcc使用g++编译的库的原则
-	(a)g++编译库的时候需要把被外界使用的接口按照纯C++可以接受的方式用extern "C" 包起来,并且加上__cplusplus宏的判断。
-	(b)对于一些特殊情况,比如已经是g++编译出来的库又不适合修改,比如ullib, 分词库等第三方库,可以自己写一个 xxx.cpp的程序,在xxx.cpp对需要使用的接口再做一次纯C接口的封装,同时用extern "C"把纯C接口导出使用.使用g++编译,并且在链接的时候加上ullib等库即可。
-	(c)gcc使用g++静态库编译报错，需要加-lstdc++才行。
+        gcc write.c -o write libshmobject.a  -lstdc++
+        gcc read.c  -o read  libshmobject.a  -lstdc++
 
-5、g++使用gcc编译的库的原则
-	这个比较简单,只需要gcc编译的提供的头文件采用extern "C"封装即可	
-		
+3��c++��
+	g++ -fpic -shared -g -o libshmobjectcplus.so shmobject.cpp -I ./

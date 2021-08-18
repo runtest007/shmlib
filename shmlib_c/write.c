@@ -1,15 +1,15 @@
-#include "shminterface.h"
-#include "shmcommon.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "shminterface.h"
+#include "shmcommon.h"
 
 int main(int argc, char** argv)
 {
-    if(init(0, 2020, sizeof(struBlkHead)+2048, 30) == 0)
-	{
-        printf("init write shm success!\n");
-	}
+    if(init(0, 1234, sizeof(struBlkHead)+2048, 64) == 0)
+    {
+        printf("create shm success!\n");
+    }
     else
     {
         printf("write shm init failed!\n");
@@ -34,6 +34,5 @@ int main(int argc, char** argv)
     }
 
     write_release();
-
     return 0;
 }
