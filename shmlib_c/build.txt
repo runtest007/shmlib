@@ -1,0 +1,15 @@
+1¡¢c¶¯Ì¬¿â
+        g++ -fpic -shared -g -o libshmobject.so shminterface.cpp shmobject.cpp -I ./
+        
+        gcc write.c -L./ -lshmobject -o write
+        gcc read.c  -L./ -lshmobject -o read
+
+2¡¢c¾²Ì¬¿â
+        g++ -c shminterface.cpp  shmobject.cpp
+        ar -crv libshmobject.a  shminterface.o shmobject.o
+
+        gcc write.c -o write libshmobject.a  -lstdc++
+        gcc read.c  -o read  libshmobject.a  -lstdc++
+
+3¡¢c++¿â
+	g++ -fpic -shared -g -o libshmobjectcplus.so shmobject.cpp -I ./
