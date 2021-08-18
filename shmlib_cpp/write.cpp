@@ -5,14 +5,13 @@
 #include<sys/types.h>
 #include<sys/ipc.h>
 #include<sys/shm.h>
-
 #include "shmcommon.h"
-#include "shmobject.cpp"
+#include "shmobject.h"
 
 int main(int argc, char** argv)
 {
     CShmObject write_obj;
-    if( write_obj.write_init(sizeof(struBlkHead)+2048, 30, 2020) == 0 )
+    if( write_obj.write_init(4321,sizeof(struBlkHead)+2048, 32) == 0 )
     {
         printf("init write shm success!\n");
     }

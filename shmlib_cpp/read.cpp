@@ -4,14 +4,13 @@
 #include<sys/types.h>
 #include<sys/ipc.h>
 #include<sys/shm.h>
-
 #include "shmcommon.h"
-#include "shmobject.cpp"
+#include "shmobject.h"
 
 int main()
 {
 	CShmObject read_obj;
-	if(read_obj.read_init(2020) == 0)
+	if(read_obj.read_init(4321) == 0)
 	{
         printf("init read shm success!\n");
 	}
@@ -28,15 +27,11 @@ int main()
         {
             struBlkHead* pstru = (struBlkHead*)readdata;
             int *p = (int*)pstru->data;
-            printf("read shm:%d\n",*p);
+            printf("read shm:%d\n", *p);
             read_obj.update_read_shm(readdata);
-            sleep(1);
         }
-        else
-        {
-            printf("无可读数据，请等待写入\n");
-            sleep(1);
-        }
+		
+        sleep(1);
     }
 
     read_obj.read_release();
