@@ -46,17 +46,17 @@ public:
     //获取可写数据块
     unsigned char* get_write_data();
 	
-	//写操作数据更新
+    //写操作数据更新
 	void update_write_shm(unsigned char *getdata); 
 	
-	//写数据入口
+    //写数据入口
 	unsigned short write_data(unsigned char* buf, unsigned short len);
 
     //获取可读数据块
-    unsigned char* get_read_data();
+	unsigned char* get_read_data();
 
-	//读操作数据更新
-	void update_read_shm(unsigned char *getdata);
+    //读操作数据更新
+    void update_read_shm(unsigned char *getdata);
 
 public:
     int iShmId;	//共享内存ID
